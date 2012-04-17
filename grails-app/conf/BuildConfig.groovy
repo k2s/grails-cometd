@@ -24,11 +24,13 @@ grails.project.dependency.resolution = {
         mavenCentral()
     }
     dependencies {
-        def cometdVer = '2.1.1'
+        def cometdVer = '2.4.0'
+		def jettyVer = '7.6.0.v20120127'
         compile(group: 'org.cometd.java', name: 'cometd-java-server', version: cometdVer) {
             excludes 'servlet-api'
         }
         compile group: 'org.cometd.java', name: 'bayeux-api', version: cometdVer
+		runtime group: 'org.eclipse.jetty', name: 'jetty-servlets', version: jettyVer
         test group: 'org.cometd.java', name: 'cometd-java-client', version: cometdVer
     }
 }
