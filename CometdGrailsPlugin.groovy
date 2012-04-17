@@ -25,8 +25,8 @@ import org.cometd.bayeux.server.BayeuxServer
 import org.springframework.web.context.support.ServletContextAttributeExporter
 
 class CometdGrailsPlugin {
-    def version = "0.2.4"
-    def grailsVersion = "1.2.1 > *"
+    def version = "0.2.5"
+    def grailsVersion = "2.0.0 > *"
     def dependsOn = [:]
     def pluginExcludes = [
         'grails-app/services/**/test/',
