@@ -94,8 +94,6 @@ CometD and the Bayeux protocol.
                 'url-pattern'('/cometd/*')
             }
         }
-         
-        println xml
     }
 
     def doWithSpring = {
