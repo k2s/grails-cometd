@@ -1,11 +1,11 @@
 /*
- * Copyright © 2010 MBTE Sweden AB
+ * Copyright (c) 2010 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-package grails.plugins.cometd.test
-
-import org.springframework.beans.factory.InitializingBean
-import org.cometd.bayeux.client.ClientSessionChannel
-
-class EchoService implements InitializingBean
+if (typeof dojo != "undefined")
 {
-    def bayeux
-
-    void afterPropertiesSet()
-    {
-        assert bayeux : 'bayeux object must be set'
-        def localSession = bayeux.newLocalSession('echo')
-        localSession.handshake()
-    }
+    dojo.provide("org.cometd.TimeStampExtension");
 }
+
+/**
+ * The timestamp extension adds the optional timestamp field to all outgoing messages.
+ */
+org.cometd.TimeStampExtension = function()
+{
+    this.outgoing = function(message)
+    {
+        message.timestamp = new Date().toUTCString();
+        return message;
+    };
+};
