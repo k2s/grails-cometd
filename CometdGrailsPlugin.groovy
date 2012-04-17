@@ -32,7 +32,9 @@ class CometdGrailsPlugin {
         'grails-app/services/**/test/',
         'grails-app/views/error.gsp',
         'scripts',
-        'web-app/'
+        'web-app/css/**',
+        'web-app/images/**',
+        'web-app/META-INF'
     ]
 
     def author = 'Marcus Better'
@@ -46,21 +48,33 @@ CometD and the Bayeux protocol.
     def documentation = "http://www.grails.org/plugin/cometd"
 
     def doWithWebDescriptor = { xml ->
+        xml.setAttribute('version','3.0')
+        
         def conf = ConfigurationHolder.config.plugins.cometd
         if (!conf.continuationFilter.disable) {
             def filters = xml.'filter'
             filters[filters.size() - 1] + {
                 filter {
+                    'filter-name'('cross-origin')
+                    'filter-class'('org.eclipse.jetty.servlets.CrossOriginFilter')
+                    'async-supported'('true')
+                }
+                filter {
                     'filter-name'('continuation')
                     'filter-class'('org.eclipse.jetty.continuation.ContinuationFilter')
+                    'async-supported'('true')
                 }
             }
             
             def filterMappings = xml.'filter-mapping'
             filterMappings[filterMappings.size() - 1] + {
                 'filter-mapping' {
+                    'filter-name'('cross-origin')
+                    'url-pattern'('/cometd/*')
+                }
+                'filter-mapping' {
                     'filter-name'('continuation')
-                    'servlet-name'('cometd')
+                    'url-pattern'('/cometd/*')
                 }
             }
         }
@@ -80,10 +94,13 @@ CometD and the Bayeux protocol.
                 'url-pattern'('/cometd/*')
             }
         }
+         
+        println xml
     }
 
     def doWithSpring = {
-        bayeux(BayeuxServerImpl, true) { bean ->
+        bayeux(BayeuxServerImpl) { bean ->
+            bean.initMethod = 'start'
             bean.destroyMethod = 'stop'
         }
 
