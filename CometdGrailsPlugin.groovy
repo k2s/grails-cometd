@@ -50,7 +50,7 @@ CometD and the Bayeux protocol.
     def doWithWebDescriptor = { xml ->
         xml.setAttribute('version','3.0')
         
-        def conf = ConfigurationHolder.config.plugins.cometd
+        def conf = ConfigurationHolder.config.grails.plugins.cometd
         if (!conf.continuationFilter.disable) {
             def filters = xml.'filter'
             filters[filters.size() - 1] + {
