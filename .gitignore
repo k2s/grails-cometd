@@ -4,5 +4,6 @@ target
 web-app/WEB-INF/classes
 plugin.xml
 *.tmproj
+web-app/**
 
 grails-cometd-*.zip
