@@ -84,6 +84,11 @@ CometD and the Bayeux protocol.
             servlet {
                 'servlet-name'('cometd')
                 'servlet-class'(CometdServlet.class.name)
+                'init-param' {
+                       'param-name'('transports')
+                       'param-value'('org.cometd.websocket.server.WebSocketTransport')
+                }
+               'load-on-startup'(0)
             }
         }
 
